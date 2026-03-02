@@ -1,6 +1,7 @@
 package com.acl.service.impl;
 
 import com.acl.dao.entity.AccountMaster;
+import com.acl.dao.entity.AccountMasterSpecification;
 import com.acl.dao.repository.AccountMasterRepository;
 import com.acl.datafilter.AccountFilter;
 import com.acl.service.AccountMasterService;
@@ -22,18 +23,16 @@ public class AccountMasterServiceImpl implements AccountMasterService {
 
 	@Override
 	public List<AccountMaster> getAccounts(AccountFilter filter) {
-		logger.info("GQL call to get accounts data with new attributes for given filter: {}",
-				filter);
+		logger.info("GQL call to get accounts data with new attributes for given filter: {}", filter);
 		List<AccountMaster> accountData;
 		validateGetAccountFilter(filter);
-		return accountMasterRepository.findAllByAccountNumberIn(filter.getAccountNumber());
+		return accountMasterRepository.findAll(AccountMasterSpecification.filter(filter));
 	}
 
 	private void validateGetAccountFilter(AccountFilter filter) {
 		boolean hasSearchCriteria =
 				filter != null && (!CollectionUtils.isEmpty(filter.getAccountNumber())
 						|| !CollectionUtils.isEmpty(filter.getTaxId()) || !CollectionUtils.isEmpty(
-						filter.getParentAccountNumber()) || !CommonUtil.isEmptyOrNull(
-						filter.getAccountName()));
+						filter.getParentAccountNumber()) || !CommonUtil.isEmptyOrNull(filter.getAccountName()));
 	}
 }

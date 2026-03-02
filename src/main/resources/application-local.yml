@@ -1,0 +1,27 @@
+cors:
+  allowed:
+    origins: http://localhost:4200, http://localhost:55940
+    headers: "*"
+    methods: "*"
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/ORCLPDB
+    username: ACLDEV
+    password: ACLDEV
+    driverClassName: oracle.jdbc.OracleDriver
+    hikari:
+      minimumIdle: 5
+      maximumPoolSize: 20
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      connectionTimeout: 3000
+      poolName: ACL-Hikari-Pool
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: ACLDEV
+        format_sql: true
+        dialect: org.hibernate.dialect.OracleDialect
