@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import lombok.Data;
@@ -11,7 +13,10 @@ import lombok.Data;
 @Entity
 @Table(name = "ACCOUNT_MASTER")
 @Data
-public class AccountMaster {
+public class AccountMaster implements Serializable {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "ACCOUNT_KEY")
