@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AccountMasterService {
 
-	public List<AccountMaster> getAccounts(AccountFilter accountFilter);
+	public List<AccountMaster> getAccounts(AccountFilter filter);
 }

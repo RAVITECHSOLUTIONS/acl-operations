@@ -32,7 +32,7 @@ public class AccountMasterServiceImpl implements AccountMasterService {
 	private void validateGetAccountFilter(AccountFilter filter) {
 		boolean hasSearchCriteria =
 				filter != null && (!CollectionUtils.isEmpty(filter.getAccountNumber())
-						|| !CollectionUtils.isEmpty(filter.getTaxId()) || !CollectionUtils.isEmpty(
-						filter.getParentAccountNumber()) || !CommonUtil.isEmptyOrNull(filter.getAccountName()));
+						|| !CollectionUtils.isEmpty(filter.getParentAccountNumber())
+						|| !CommonUtil.isEmptyOrNull(filter.getAccountName()));
 	}
 }

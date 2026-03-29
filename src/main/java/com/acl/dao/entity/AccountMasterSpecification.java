@@ -20,9 +20,6 @@ public class AccountMasterSpecification {
 				predicates.add(
 						root.get(ACLConstants.PARENT_ACCOUNT_NUMBER).in(filter.getParentAccountNumber()));
 			}
-			if (filter.getTaxId() != null && !filter.getTaxId().isEmpty()) {
-				predicates.add(root.get(ACLConstants.TAX_ID).in(filter.getTaxId()));
-			}
 			if (filter.getAccountName() != null && !filter.getAccountName().isEmpty()) {
 				predicates.add(root.get(ACLConstants.ACCOUNT_NAME).in(filter.getAccountName()));
 			}

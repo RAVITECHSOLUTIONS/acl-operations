@@ -17,6 +17,17 @@ spring:
       maxLifetime: 2000000
       connectionTimeout: 3000
       poolName: ACL-Hikari-Pool
+  graphql:
+    graphiql:
+      enabled: true
+      cdn:
+        enabled: false
+    schema:
+      introspection:
+        enabled: true
+    cors:
+      allowed-origins: "*"
+      allowed-methods: GET, POST
   jpa:
     hibernate.ddl-auto: update
     show-sql: true

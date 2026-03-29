@@ -1,0 +1,16 @@
+type Query{
+    getAccounts(filter: AccountFilter):[GetAccountResponse]
+}
+
+input AccountFilter{
+    accountNumber:[String]
+    parentAccountNumber:[String]
+    accountName:String
+}
+
+type GetAccountResponse{
+    accountNumber:String
+    parentAccountNumber:String
+    accountName:String
+}
+

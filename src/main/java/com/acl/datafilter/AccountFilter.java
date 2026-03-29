@@ -12,6 +12,5 @@ public class AccountFilter {
 
 	private List<String> accountNumber;
 	private List<String> parentAccountNumber;
-	private List<String> taxId;
 	private String accountName;
 }
