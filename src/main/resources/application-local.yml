@@ -19,12 +19,15 @@ spring:
       poolName: ACL-Hikari-Pool
   graphql:
     graphiql:
-      enabled: true
-      cdn:
-        enabled: false
+      enabled: false
+#      cdn:
+#        enabled: false
+    path: /graphql
     schema:
       introspection:
         enabled: true
+#    websocket:
+#      path: /graphql-ws
     cors:
       allowed-origins: "*"
       allowed-methods: GET, POST

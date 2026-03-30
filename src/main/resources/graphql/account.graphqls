@@ -1,0 +1,18 @@
+# ── Root Types (declared ONCE here) ──────────────────────────────────────────
+type Query {
+    getAccounts(filter: AccountFilter): [GetAccountResponse]
+}
+
+# ── Response Type ─────────────────────────────────────────────────────────────
+type GetAccountResponse {
+    accountNumber: String
+    parentAccountNumber: String
+    accountName: String
+}
+
+# ── Input Types ───────────────────────────────────────────────────────────────
+input AccountFilter {
+    accountNumber: [String]
+    parentAccountNumber: [String]
+    accountName: String
+}

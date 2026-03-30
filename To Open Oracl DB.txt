@@ -1,0 +1,3 @@
+To Open DB if it's not open:
+
+Go to Command Prompt -> sqlplus / as sysdba -> ALTER PLUGGABLE DATABASE ORCLPDB OPEN;

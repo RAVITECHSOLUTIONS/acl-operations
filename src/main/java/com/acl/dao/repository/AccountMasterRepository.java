@@ -3,6 +3,7 @@ package com.acl.dao.repository;
 import com.acl.dao.entity.AccountMaster;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,8 @@ public interface AccountMasterRepository extends JpaRepository<AccountMaster, Bi
 			""")
 	public AccountMaster getAccountMasterByAccountNumber(
 			@Param("accountNumber") String accountNumber);
+
+	Optional<AccountMaster> findByAccountNumber(String accountNumber);
+
+	boolean existsByAccountNumber(String accountNumber);
 }

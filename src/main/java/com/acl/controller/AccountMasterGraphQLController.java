@@ -15,8 +15,8 @@ public class AccountMasterGraphQLController {
 
 	private final AccountMasterService accountMasterService;
 
-	@QueryMapping
-	public List<AccountMaster> getAccounts(@Argument("filter") AccountFilter filter) {
-		return accountMasterService.getAccounts(filter);
-	}
+//	@QueryMapping
+//	public List<AccountMaster> getAccounts(@Argument("filter") AccountFilter filter) {
+//		return accountMasterService.getAccounts(filter);
+//	}
 }

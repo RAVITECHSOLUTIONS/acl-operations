@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GraphiQL — ACL</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { height: 100vh; width: 100vw; overflow: hidden; font-family: sans-serif; }
+    #graphiql { height: 100vh; }
+    .loading {
+      display: flex; align-items: center; justify-content: center;
+      height: 100vh; font-size: 18px; color: #555;
+      background: #1a1a2e;
+      color: #e0e0e0;
+    }
+  </style>
+
+  <!-- ✅ graphiql@3.7.0 — confirmed working on unpkg -->
+  <link
+      rel="stylesheet"
+      href="https://unpkg.com/graphiql@3.7.0/graphiql.min.css"
+  />
+</head>
+<body>
+<div id="graphiql">
+  <div class="loading">Loading GraphiQL...</div>
+</div>
+
+<!-- React 18 -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+<!-- GraphiQL 3.7.0 -->
+<script src="https://unpkg.com/graphiql@3.7.0/graphiql.min.js" crossorigin></script>
+
+<script>
+  // ✅ Force POST — GraphQL requires POST, not GET
+  function fetcher(graphQLParams) {
+    return fetch('http://localhost:8082/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept':       'application/json',
+      },
+      body: JSON.stringify(graphQLParams),
+    })
+    .then(function(res) { return res.json(); })
+    .catch(function(err) {
+      console.error('GraphQL fetch error:', err);
+      return { errors: [{ message: err.message }] };
+    });
+  }
+
+  // Default query shown on load
+  var defaultQuery = [
+    '# ── Query: Get all accounts ─────────────────────',
+    'query GetAllAccounts {',
+    '  getAccounts {',
+    '    id',
+    '    accountNumber',
+    '    parentAccountNumber',
+    '    accountName',
+    '    accountType',
+    '    status',
+    '  }',
+    '}',
+    '',
+    '# ── Query: Filter accounts ───────────────────────',
+    '# query FilterAccounts {',
+    '#   getAccounts(filter: { status: "ACTIVE", accountType: "CORPORATE" }) {',
+    '#     id accountNumber accountName status',
+    '#   }',
+    '# }',
+    '',
+    '# ── Mutation: Create account ──────────────────────',
+    '# mutation CreateAccount {',
+    '#   createAccount(input: {',
+    '#     accountNumber: "ACC006"',
+    '#     accountName: "New Account"',
+    '#     accountType: "BRANCH"',
+    '#     status: "ACTIVE"',
+    '#   }) {',
+    '#     id accountNumber accountName',
+    '#   }',
+    '# }',
+  ].join('\n');
+
+  // Render GraphiQL
+  var root = ReactDOM.createRoot(document.getElementById('graphiql'));
+  root.render(
+    React.createElement(GraphiQL, {
+      fetcher: fetcher,
+      defaultQuery: defaultQuery,
+      defaultEditorToolsVisibility: true,  // show docs/schema panel
+    })
+  );
+</script>
+</body>
+</html>

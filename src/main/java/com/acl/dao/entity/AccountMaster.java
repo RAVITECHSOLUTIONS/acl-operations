@@ -8,11 +8,17 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "ACCOUNT_MASTER")
+@Table(name = "account_master")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AccountMaster implements Serializable {
 
 	@Serial
