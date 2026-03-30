@@ -1,5 +1,5 @@
 type Query {
-    getAccounts(filter: AccountFilter): [GetAccountResponse]
+    getAccounts(filter: AccountFilter): [AccountMaster]
     getAccountById(id: ID!): AccountMaster
 }
 
