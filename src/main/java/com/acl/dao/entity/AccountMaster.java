@@ -28,20 +28,23 @@ public class AccountMaster implements Serializable {
 	@Column(name = "ACCOUNT_KEY")
 	private BigInteger accountKey;
 
+	@Column(name = "ACCOUNT_NAME")
+	private String accountName;
+
 	@Column(name = "ACCOUNT_NUMBER")
 	private String accountNumber;
 
 	@Column(name = "PARENT_ACCOUNT_NUMBER")
 	private String parentAccountNumber;
 
-	@Column(name = "ACCOUNT_NAME")
-	private String accountName;
-
 	@Column(name = "ACCOUNT_TYPE_CD")
 	private String accountTypeCd;
 
 	@Column(name = "ACCOUNT_TYPE_DESC")
 	private String accountTypeDesc;
+
+	@Column(name = "ACCOUNT_CTGRY_DESC")
+	private String accountCtgryDesc;
 
 	@Column(name = "INCEPTION_TAX_DATE")
 	private Date inceptionTaxDate;

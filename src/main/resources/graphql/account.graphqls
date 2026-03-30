@@ -1,18 +1,56 @@
-# ── Root Types (declared ONCE here) ──────────────────────────────────────────
 type Query {
     getAccounts(filter: AccountFilter): [GetAccountResponse]
+    getAccountById(id: ID!): AccountMaster
 }
 
-# ── Response Type ─────────────────────────────────────────────────────────────
+type Mutation {
+    createAccount(input: CreateAccountInput!): AccountMaster
+    updateAccount(id: ID!, input: UpdateAccountInput!): AccountMaster
+    deleteAccount(id: ID!): Boolean
+}
+
+type AccountMaster {
+    accountKey: ID!
+    accountName: String!
+    accountNumber: String!
+    parentAccountNumber: String
+    accountTypeCd: String
+    accountTypeDesc: String
+    accountCtgryDesc: String
+    inceptionTaxDate: String
+    invOfficerName: String
+}
+
 type GetAccountResponse {
     accountNumber: String
     parentAccountNumber: String
     accountName: String
 }
 
-# ── Input Types ───────────────────────────────────────────────────────────────
 input AccountFilter {
     accountNumber: [String]
     parentAccountNumber: [String]
     accountName: String
+}
+
+input CreateAccountInput {
+    accountName: String!
+    accountNumber: String!
+    parentAccountNumber: String
+    accountType: String
+    accountTypeCd: String!
+    accountTypeDesc: String!
+    accountCtgryDesc: String!
+    invOfficerName: String!
+}
+
+input UpdateAccountInput {
+    accountName: String!
+    accountNumber: String!
+    parentAccountNumber: String
+    accountType: String
+    accountTypeCd: String!
+    accountTypeDesc: String!
+    accountCtgryDesc: String!
+    invOfficerName: String!
 }

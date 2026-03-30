@@ -12,7 +12,6 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class AccountMasterServiceImpl implements AccountMasterService {
 				.accountNumber(input.getAccountNumber())
 				.parentAccountNumber(input.getParentAccountNumber())
 				.accountName(input.getAccountName())
-				.accountTypeCd(input.getAccountType())
+				.accountTypeCd(input.getAccountTypeCd())
 				.build();
 
 		return accountMasterRepository.save(account);
@@ -65,8 +64,8 @@ public class AccountMasterServiceImpl implements AccountMasterService {
 		if (input.getAccountName() != null) {
 			account.setAccountName(input.getAccountName());
 		}
-		if (input.getAccountType() != null) {
-			account.setAccountTypeCd(input.getAccountType());
+		if (input.getAccountTypeCd() != null) {
+			account.setAccountTypeCd(input.getAccountTypeCd());
 		}
 		return accountMasterRepository.save(account);
 	}
