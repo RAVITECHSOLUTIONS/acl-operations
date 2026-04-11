@@ -20,11 +20,6 @@ public class AccountMasterController {
 
 	private final AccountMasterService accountMasterService;
 
-//	@PostMapping(value = "/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<AccountMaster>> getAccounts(@RequestBody AccountFilter accountFilter) {
-//		return ResponseEntity.ok(this.accountMasterService.getAccounts(accountFilter));
-//	}
-
 	// ── QUERIES ──────────────────────────────────────────────────────────────
 
 	@QueryMapping

@@ -1,7 +1,11 @@
 extend type Query {
-    getAccountMetrics(filter: AccountMetricFilter): [AccountMetricResponse]
+#    getAccountMetrics(filter: AccountMetricFilter): [AccountMetricResponse]
+    getAccountMetricsByAccountNumber(filter: AccountMetricFilter): [AccountMetric]
 }
 
+extend type Mutation {
+    createAccountMetric(input: CreateAccountMetricInput!): AccountMetric
+}
 
 input AccountMetricFilter {
     accountNumber: [String]
@@ -9,16 +13,16 @@ input AccountMetricFilter {
     parentAccountNumber: [String]
     startSnapshotDate: [String]
     endSnapshotDate: [String]
-    page:Int
-    size:Int
+    page: Int
+    size: Int
 }
 
-type AccountMetricResponse{
-    accountNumber: String
-    taxId: String
-    parentAccountNumber: String
-    accountMetrics: [AccountMetric]
-}
+#type AccountMetricResponse{
+#    accountNumber: String
+#    taxId: String
+#    parentAccountNumber: String
+#    accountMetrics: [AccountMetric]
+#}
 
 type AccountMetric{
     accountMetricKey: String
@@ -28,4 +32,11 @@ type AccountMetric{
     principalCash: String
     loadDate: String
     snapShotDate: String
+}
+
+input CreateAccountMetricInput{
+    accountKey: String
+    marketVal: String
+    principalFeeMtd: String
+    principalCash: String
 }
