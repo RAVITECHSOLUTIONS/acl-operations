@@ -46,13 +46,13 @@ public class AccountMasterController {
 	}
 
 	@MutationMapping
-	public AccountMaster updateAccount(@Argument("id") Long id,
+	public AccountMaster updateAccount(@Argument("id") String id,
 			@Argument("input") UpdateAccountInput input) {
 		return accountMasterService.updateAccount(id, input);
 	}
 
 	@MutationMapping
-	public Boolean deleteAccount(@Argument("id") Long id) {
+	public Boolean deleteAccount(@Argument("id") String id) {
 		return accountMasterService.deleteAccount(id);
 	}
 }

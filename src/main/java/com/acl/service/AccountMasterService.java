@@ -15,7 +15,7 @@ public interface AccountMasterService {
 
 	AccountMaster createAccount(CreateAccountInput input);
 
-	AccountMaster updateAccount(Long id, UpdateAccountInput input);
+	AccountMaster updateAccount(String id, UpdateAccountInput input);
 
-	boolean deleteAccount(Long id);
+	boolean deleteAccount(String id);
 }

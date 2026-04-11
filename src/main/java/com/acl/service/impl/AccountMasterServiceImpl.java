@@ -55,32 +55,44 @@ public class AccountMasterServiceImpl implements AccountMasterService {
 	}
 
 	@Override
-	public AccountMaster updateAccount(Long id, UpdateAccountInput input) {
+	public AccountMaster updateAccount(String id, UpdateAccountInput input) {
 		logger.info("GQL call to update account id: {}", id);
 
-		AccountMaster account = accountMasterRepository.findById(BigInteger.valueOf(id))
+		AccountMaster account = accountMasterRepository.findById(new BigInteger(id))
 				.orElseThrow(() -> new RuntimeException("Account not found with id: " + id));
 
-		if (input.getParentAccountNumber() != null) {
-			account.setParentAccountNumber(input.getParentAccountNumber());
+		if (!CommonUtil.isEmptyOrNull(input.getAccountNumber())) {
+			account.setAccountNumber(input.getAccountNumber());
 		}
-		if (input.getAccountName() != null) {
+		if (!CommonUtil.isEmptyOrNull(input.getAccountName())) {
 			account.setAccountName(input.getAccountName());
 		}
-		if (input.getAccountTypeCd() != null) {
+		if (!CommonUtil.isEmptyOrNull(input.getParentAccountNumber())) {
+			account.setParentAccountNumber(input.getParentAccountNumber());
+		}
+		if (!CommonUtil.isEmptyOrNull(input.getAccountTypeCd())) {
 			account.setAccountTypeCd(input.getAccountTypeCd());
+		}
+		if (!CommonUtil.isEmptyOrNull(input.getAccountTypeDesc())) {
+			account.setAccountTypeDesc(input.getAccountTypeDesc());
+		}
+		if (!CommonUtil.isEmptyOrNull(input.getAccountCtgryDesc())) {
+			account.setAccountCtgryDesc(input.getAccountCtgryDesc());
+		}
+		if (!CommonUtil.isEmptyOrNull(input.getInvOfficerName())) {
+			account.setInvOfficerName(input.getInvOfficerName());
 		}
 		return accountMasterRepository.save(account);
 	}
 
 	@Override
-	public boolean deleteAccount(Long id) {
+	public boolean deleteAccount(String id) {
 		logger.info("GQL call to delete account id: {}", id);
 
-		if (!accountMasterRepository.existsById(BigInteger.valueOf(id))) {
+		if (!accountMasterRepository.existsById(new BigInteger(id))) {
 			throw new RuntimeException("Account not found with id: " + id);
 		}
-		accountMasterRepository.deleteById(BigInteger.valueOf(id));
+		accountMasterRepository.deleteById(new BigInteger(id));
 		return true;
 	}
 
