@@ -1,7 +1,7 @@
 package com.acl.service;
 
-import com.acl.dao.entity.AccountMaster;
 import com.acl.datafilter.AccountFilter;
+import com.acl.model.AccountMaster;
 import com.acl.models.CreateAccountInput;
 import com.acl.models.UpdateAccountInput;
 import java.util.List;
@@ -11,7 +11,7 @@ public interface AccountMasterService {
 
 	public List<AccountMaster> getAccounts(AccountFilter filter);
 
-	Optional<AccountMaster> getAccountById(Long id);
+	Optional<AccountMaster> getAccountById(String id);
 
 	AccountMaster createAccount(CreateAccountInput input);
 

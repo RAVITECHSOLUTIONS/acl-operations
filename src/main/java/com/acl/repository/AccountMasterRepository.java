@@ -1,6 +1,6 @@
-package com.acl.dao.repository;
+package com.acl.repository;
 
-import com.acl.dao.entity.AccountMaster;
+import com.acl.model.AccountMaster;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;

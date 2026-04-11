@@ -1,4 +1,4 @@
-package com.acl.exception;
+package com.acl.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Collections;

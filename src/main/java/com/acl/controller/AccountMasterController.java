@@ -1,7 +1,7 @@
 package com.acl.controller;
 
-import com.acl.dao.entity.AccountMaster;
 import com.acl.datafilter.AccountFilter;
+import com.acl.model.AccountMaster;
 import com.acl.models.CreateAccountInput;
 import com.acl.models.UpdateAccountInput;
 import com.acl.service.AccountMasterService;
@@ -10,10 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +33,7 @@ public class AccountMasterController {
 	}
 
 	@QueryMapping
-	public AccountMaster getAccountById(@Argument("id") Long id) {
+	public AccountMaster getAccountById(@Argument("id") String id) {
 		return accountMasterService.getAccountById(id)
 				.orElseThrow(() -> new RuntimeException("Account not found with id: " + id));
 	}

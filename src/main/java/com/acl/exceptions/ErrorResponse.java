@@ -1,4 +1,4 @@
-package com.acl.exception;
+package com.acl.exceptions;
 
 import java.util.Date;
 import java.util.List;

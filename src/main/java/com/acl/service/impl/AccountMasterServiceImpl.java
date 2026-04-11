@@ -1,14 +1,16 @@
 package com.acl.service.impl;
 
-import com.acl.dao.entity.AccountMaster;
-import com.acl.dao.entity.AccountMasterSpecification;
-import com.acl.dao.repository.AccountMasterRepository;
+
 import com.acl.datafilter.AccountFilter;
+import com.acl.model.AccountMaster;
+import com.acl.model.AccountMasterSpecification;
 import com.acl.models.CreateAccountInput;
 import com.acl.models.UpdateAccountInput;
+import com.acl.repository.AccountMasterRepository;
 import com.acl.service.AccountMasterService;
 import com.acl.util.CommonUtil;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -41,13 +43,14 @@ public class AccountMasterServiceImpl implements AccountMasterService {
 			throw new RuntimeException("Account number already exists: " + input.getAccountNumber());
 		}
 
-		AccountMaster account = AccountMaster.builder()
-				.accountNumber(input.getAccountNumber())
-				.parentAccountNumber(input.getParentAccountNumber())
-				.accountName(input.getAccountName())
-				.accountTypeCd(input.getAccountTypeCd())
-				.build();
-
+		String accountNumber = input.getAccountNumber()
+				.substring(input.getAccountNumber().length() - 8);
+		BigInteger last8DigitsOfAccountNumber = new BigInteger(accountNumber);
+		AccountMaster account = AccountMaster.builder().accountKey(last8DigitsOfAccountNumber)
+				.accountName(input.getAccountName()).accountNumber(input.getAccountNumber())
+				.parentAccountNumber(input.getParentAccountNumber()).accountTypeCd(input.getAccountTypeCd())
+				.accountTypeDesc(input.getAccountTypeDesc()).accountCtgryDesc(input.getAccountCtgryDesc())
+				.inceptionTaxDate(new Date()).invOfficerName(input.getInvOfficerName()).build();
 		return accountMasterRepository.save(account);
 	}
 
@@ -82,9 +85,9 @@ public class AccountMasterServiceImpl implements AccountMasterService {
 	}
 
 	@Override
-	public Optional<AccountMaster> getAccountById(Long id) {
+	public Optional<AccountMaster> getAccountById(String id) {
 		logger.info("GQL call to get account by id: {}", id);
-		return accountMasterRepository.findById(BigInteger.valueOf(id));
+		return accountMasterRepository.findById(new BigInteger(id));
 	}
 
 	private void validateGetAccountFilter(AccountFilter filter) {

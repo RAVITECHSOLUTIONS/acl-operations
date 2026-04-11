@@ -1,4 +1,4 @@
-package com.acl.dao.entity;
+package com.acl.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "account_master")
+@Table(name = "ACCOUNT_MASTER")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

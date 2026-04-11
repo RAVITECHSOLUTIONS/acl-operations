@@ -1,4 +1,4 @@
-package com.acl.dao.entity;
+package com.acl.model;
 
 import com.acl.datafilter.AccountFilter;
 import com.acl.util.ACLConstants;
