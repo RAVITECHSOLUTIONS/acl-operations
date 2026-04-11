@@ -1,12 +1,12 @@
 type Query {
     getAccounts(filter: AccountFilter): [AccountMaster]
-    getAccountById(id: ID!): AccountMaster
+    getAccountById(id: String!): AccountMaster
 }
 
 type Mutation {
     createAccount(input: CreateAccountInput!): AccountMaster
-    updateAccount(id: ID!, input: UpdateAccountInput!): AccountMaster
-    deleteAccount(id: ID!): Boolean
+    updateAccount(id: String!, input: UpdateAccountInput!): AccountMaster
+    deleteAccount(id: String!): Boolean
 }
 
 type AccountMaster {

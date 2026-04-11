@@ -1,0 +1,31 @@
+extend type Query {
+    getAccountMetrics(filter: AccountMetricFilter): [AccountMetricResponse]
+}
+
+
+input AccountMetricFilter {
+    accountNumber: [String]
+    taxId: [String]
+    parentAccountNumber: [String]
+    startSnapshotDate: [String]
+    endSnapshotDate: [String]
+    page:Int
+    size:Int
+}
+
+type AccountMetricResponse{
+    accountNumber: String
+    taxId: String
+    parentAccountNumber: String
+    accountMetrics: [AccountMetric]
+}
+
+type AccountMetric{
+    accountMetricKey: String
+    accountKey: String
+    marketVal: String
+    principalFeeMtd: String
+    principalCash: String
+    loadDate: String
+    snapShotDate: String
+}
