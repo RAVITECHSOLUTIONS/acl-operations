@@ -79,11 +79,11 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/RAVITECHSOLUTIONS/acl-operations.git'
-            }
-        }
+//         stage('Checkout') {
+//             steps {
+//                 git 'https://github.com/RAVITECHSOLUTIONS/acl-operations.git'
+//             }
+//         }
 
         stage('Build with Maven') {
             steps {
