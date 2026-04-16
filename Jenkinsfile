@@ -1,69 +1,126 @@
-library 'pipeline'
+// library 'pipeline'
+//
+// pipeline {
+//     agent {
+//         kubernetes {
+//             defaultContainer 'jnlp'
+//             label 'pipeline-jdk17'
+//         }
+//     }
+//
+//     options {
+//         timeout( time: 2, unit: 'HOURS' )
+//     }
+//
+//     environment {
+//         MNEMONIC        = 'acl'
+//         APP_NAME        = 'acl-operations'
+//         PRIMARY_BRANCH  = 'release/1.0'
+//         DEPLOY_PROJECT  = 'acl'
+//         DEPLOY_REPO     = 'acl-helm-deploy'
+//         TARGET_BRANCH   = 'stage-rnd'
+//     }
+//
+//     stages {
+//
+//         //-------Initialization--------------------------------------------
+//         stage("Initialization") {
+//             steps {
+//                 initialization()
+//             }
+//         }
+//
+//         //-------Builds----------------------------------------------------
+//         stage('Building Source') {
+//             steps {
+//                 buildMaven()
+//             }
+//         }
+//
+//         //-------Images----------------------------------------------------
+//         stage('Build Container Image') {
+//             steps {
+//                 buildImage()
+//             }
+//         }
+//
+//         //-------Sonar-----------------------------------------------------
+//         stage('Code Quality Scan') {
+//             steps {
+//                 runSonar()
+//             }
+//         }
+//
+//         //-------Deploy----------------------------------------------------
+//         stage('Update Deploy Repo Helm') {
+//             when { expression { env.GIT_BRANCH == env.PRIMARY_BRANCH } }
+//             steps {
+//                 updateHelmDeployRepo()
+//             }
+//         }
+//
+//     }
+//
+//     post {
+//         always {
+//             generalCleanup()
+//         }
+//     }
+// }
+
 
 pipeline {
-    agent {
-        kubernetes {
-            defaultContainer 'jnlp'
-            label 'pipeline-jdk17'
-        }
-    }
-
-    options {
-        timeout( time: 2, unit: 'HOURS' )
-    }
+    agent any
 
     environment {
-        MNEMONIC        = 'acl'
-        APP_NAME        = 'acl-operations'
-        PRIMARY_BRANCH  = 'release/1.0'
-        DEPLOY_PROJECT  = 'acl'
-        DEPLOY_REPO     = 'acl-helm-deploy'
-        TARGET_BRANCH   = 'stage-rnd'
+        IMAGE_NAME = "acl-operations"
+        IMAGE_TAG = "latest"
     }
 
     stages {
 
-        //-------Initialization--------------------------------------------
-        stage("Initialization") {
+        stage('Checkout') {
             steps {
-                initialization()
+                git 'https://github.com/RAVITECHSOLUTIONS/acl-operations.git'
             }
         }
 
-        //-------Builds----------------------------------------------------
-        stage('Building Source') {
+        stage('Build with Maven') {
             steps {
-                buildMaven()
+                bat 'mvn clean package -DskipTests'
             }
         }
 
-        //-------Images----------------------------------------------------
-        stage('Build Container Image') {
+        stage('Build Image with Podman') {
             steps {
-                buildImage()
+                bat "podman build -t %IMAGE_NAME%:%IMAGE_TAG% ."
             }
         }
 
-        //-------Sonar-----------------------------------------------------
-        stage('Code Quality Scan') {
+        stage('Stop Old Container') {
             steps {
-                runSonar()
+                bat '''
+                podman stop acl-operations-container || echo not running
+                podman rm acl-operations-container || echo not exists
+                '''
             }
         }
 
-        //-------Deploy----------------------------------------------------
-        stage('Update Deploy Repo Helm') {
-            when { expression { env.GIT_BRANCH == env.PRIMARY_BRANCH } }
+        stage('Run Container') {
             steps {
-                updateHelmDeployRepo()
+                bat """
+                podman run -d -p 8080:8080 --name acl-operations-container %IMAGE_NAME%:%IMAGE_TAG%
+                """
             }
         }
-
     }
 
     post {
-        always {
-            generalCleanup()
+        success {
+            echo 'Deployment Successful!'
+        }
+        failure {
+            echo 'Build Failed!'
         }
     }
 }

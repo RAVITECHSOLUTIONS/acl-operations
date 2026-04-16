@@ -9,6 +9,44 @@ jwt:
   secret: dGhpcy1pcy1hLXNlY3VyZS1rZXktZm9yLWp3dC1hdXRoZW50aWNhdGlvbi1zcHJpbmdib290Mw==
   expiration: 86400000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,info,loggers
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+    tracing:
+      sampling:
+        probability: 1.0
+    otlp:
+      tracing:
+        endpoint: http://localhost:4318/v1/traces
+  endpoint:
+    health:
+      show-details: "always"
+
+otel:
+  exporter:
+    otlp:
+      endpoint: http://localhost:4318
+      protocol: http/protobuf
+  traces:
+    exporter: otlp
+  metrics:
+    exporter: otlp
+
+logging:
+  level:
+    com.acl: DEBUG
+
 
 #spring:
 #  datasource:
