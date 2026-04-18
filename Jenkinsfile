@@ -82,25 +82,25 @@ pipeline {
 
         stage('Build JAR') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Deploy to Nexus') {
             steps {
-                sh 'mvn deploy'
+                bat 'mvn deploy'
             }
         }
 
         stage('Build Image') {
             steps {
-                sh 'podman build -t acl-operations:latest .'
+                bat 'podman build -t acl-operations:latest .'
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'podman run -d -p 8085:8080 acl-operations:latest'
+                bat 'podman run -d -p 8085:8080 acl-operations:latest'
             }
         }
     }
