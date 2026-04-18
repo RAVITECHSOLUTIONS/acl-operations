@@ -76,7 +76,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-repo/acl-operations.git'
+                git 'https://github.com/RAVITECHSOLUTIONS/acl-operations.git'
             }
         }
 
