@@ -15,6 +15,7 @@
     <groupId>com.acl</groupId>
     <artifactId>acl-parent-pom</artifactId>
     <version>1.0.0</version>
+    <relativePath/>
   </parent>
 
   <properties>
@@ -74,37 +75,37 @@
       <scope>test</scope>
     </dependency>
 
-<!--    &lt;!&ndash;  Monitoring Tools &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-starter-actuator</artifactId>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash;  Monitoring Tools &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-starter-actuator</artifactId>-->
+    <!--    </dependency>-->
 
 
-<!--    &lt;!&ndash; Micrometer Prometheus Registry &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.micrometer</groupId>-->
-<!--      <artifactId>micrometer-registry-prometheus</artifactId>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; Micrometer Prometheus Registry &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>io.micrometer</groupId>-->
+    <!--      <artifactId>micrometer-registry-prometheus</artifactId>-->
+    <!--    </dependency>-->
 
-<!--    &lt;!&ndash; Micrometer Tracing with OpenTelemetry &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.micrometer</groupId>-->
-<!--      <artifactId>micrometer-tracing-bridge-otel</artifactId>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; Micrometer Tracing with OpenTelemetry &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>io.micrometer</groupId>-->
+    <!--      <artifactId>micrometer-tracing-bridge-otel</artifactId>-->
+    <!--    </dependency>-->
 
-<!--    &lt;!&ndash; OpenTelemetry Exporter &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.opentelemetry</groupId>-->
-<!--      <artifactId>opentelemetry-exporter-otlp</artifactId>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; OpenTelemetry Exporter &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>io.opentelemetry</groupId>-->
+    <!--      <artifactId>opentelemetry-exporter-otlp</artifactId>-->
+    <!--    </dependency>-->
 
-<!--    &lt;!&ndash; For Loki logging (optional) &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>com.github.loki4j</groupId>-->
-<!--      <artifactId>loki-logback-appender</artifactId>-->
-<!--      <version>1.5.0</version>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; For Loki logging (optional) &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>com.github.loki4j</groupId>-->
+    <!--      <artifactId>loki-logback-appender</artifactId>-->
+    <!--      <version>1.5.0</version>-->
+    <!--    </dependency>-->
   </dependencies>
 
   <build>
@@ -152,4 +153,15 @@
       </plugin>
     </plugins>
   </build>
+
+  <distributionManagement>
+    <repository>
+      <id>maven-releases</id>
+      <url>http://localhost:8081/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>maven-snapshots</id>
+      <url>http://localhost:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>

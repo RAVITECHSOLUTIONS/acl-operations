@@ -33,15 +33,13 @@
 
 
 # Build stage
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+FROM eclipse-temurin:17-jdk
 
-# Runtime stage
-FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
-COPY --from=build /app/target/acl-operations.jar acl-operations.jar
+
+# Copy built jar
+COPY target/acl-operations-1.0.0.jar acl-operations.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+ENTRYPOINT ["java","-jar","acl-operations.jar"]

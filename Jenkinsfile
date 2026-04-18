@@ -72,55 +72,36 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "acl-operations"
-        IMAGE_TAG = "latest"
-    }
-
     stages {
 
-//         stage('Checkout') {
-//             steps {
-//                 git 'https://github.com/RAVITECHSOLUTIONS/acl-operations.git'
-//             }
-//         }
-
-        stage('Build with Maven') {
+        stage('Checkout') {
             steps {
-                bat 'mvn clean package -DskipTests'
+                git 'https://github.com/your-repo/acl-operations.git'
             }
         }
 
-        stage('Build Image with Podman') {
+        stage('Build JAR') {
             steps {
-                bat "podman build -t %IMAGE_NAME%:%IMAGE_TAG% ."
+                sh 'mvn clean package -DskipTests'
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Deploy to Nexus') {
             steps {
-                bat '''
-                podman stop acl-operations-container || echo not running
-                podman rm acl-operations-container || echo not exists
-                '''
+                sh 'mvn deploy'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                sh 'podman build -t acl-operations:latest .'
             }
         }
 
         stage('Run Container') {
             steps {
-                bat """
-                podman run -d -p 8080:8080 --name acl-operations-container %IMAGE_NAME%:%IMAGE_TAG%
-                """
+                sh 'podman run -d -p 8085:8080 acl-operations:latest'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Deployment Successful!'
-        }
-        failure {
-            echo 'Build Failed!'
         }
     }
 }
